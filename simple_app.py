@@ -6,7 +6,9 @@ from transformers import AutoTokenizer
 # Set assistant icon to Snowflake logo
 icons = {"assistant": "./Snowflake_Logomark_blue.svg", "user": "⛷️"}
 
+
 # App title
+
 st.set_page_config(page_title="Snowflake Arctic")
 
 # Replicate Credentials
@@ -37,9 +39,7 @@ for message in st.session_state.messages:
 def clear_chat_history():
     st.session_state.messages = [{"role": "assistant", "content": "Hi. I'm Arctic, a new, efficient, intelligent, and truly open language model created by Snowflake AI Research. Ask me anything."}]
 
-st.sidebar.button('Clear chat history', on_click=clear_chat_history)
-st.sidebar.caption('Built by [Snowflake](https://snowflake.com/) to demonstrate [Snowflake Arctic](https://www.snowflake.com/blog/arctic-open-and-efficient-foundation-language-models-snowflake). App hosted on [Streamlit Community Cloud](https://streamlit.io/cloud). Model hosted by [Replicate](https://replicate.com/snowflake/snowflake-arctic-instruct).')
-st.sidebar.caption('Build your own app powered by Arctic and [enter to win](https://arctic-streamlit-hackathon.devpost.com/) $10k in prizes.')
+st.sidebar.button('Clear chat history', on_click=clear_chat_history) 
 
 @st.cache_resource(show_spinner=False)
 def get_tokenizer():
@@ -93,3 +93,45 @@ if st.session_state.messages[-1]["role"] != "assistant":
         full_response = st.write_stream(response)
     message = {"role": "assistant", "content": full_response}
     st.session_state.messages.append(message)
+
+
+
+# import streamlit as st
+# import replicate
+# import os
+
+# # Set your API token here if not set in the environment variables
+# os.environ["REPLICATE_API_TOKEN"] = "r8_OMbXq8LXlUfj9H4vhW4ICrqWRnHyYMu01kynq"
+
+# def main():
+#     st.title("Snowflake Arctic Chatbot")
+#     prompt = st.text_input("Enter your prompt:", value="Write fizz buzz in SQL")
+#     temperature = st.slider("Temperature", 0.0, 1.0, 0.2)
+
+#     if st.button("Generate Response"):
+#         with st.spinner("Generating response..."):
+#             response = generate_response(prompt, temperature)
+#             st.write(response)
+
+# def generate_response(prompt, temperature):
+#     input = {
+#         "prompt": prompt,
+#         "temperature": temperature
+#     }
+    
+#     response_text = ""
+#     try:
+#         for event in replicate.stream(
+#             "snowflake/snowflake-arctic-instruct",
+#             input=input
+#         ):
+#             # Ensure event data is a string before concatenation
+#             response_text += str(event)
+        
+#     except replicate.exceptions.ReplicateError as e:
+#         st.error(f"Error: {e}")
+    
+#     return response_text
+
+# if __name__ == "__main__":
+#     main()
