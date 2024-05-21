@@ -383,7 +383,10 @@ with st.sidebar:
             st.markdown("**Don't have an API token?** Head over to [Replicate](https://replicate.com) to sign up for one.")
 
     os.environ['REPLICATE_API_TOKEN'] = replicate_api
+    uploaded_file = st.sidebar.file_uploader("Upload a text file with persona data", type=["txt"])
+
     st.subheader("Adjust model parameters")
+
     temperature = st.sidebar.slider('temperature', min_value=0.01, max_value=5.0, value=0.3, step=0.01)
     top_p = st.sidebar.slider('top_p', min_value=0.01, max_value=1.0, value=0.9, step=0.01)
 
@@ -472,7 +475,6 @@ def text_to_speech(text, language):
     return audio_base64
 
 # Upload user persona file
-uploaded_file = st.sidebar.file_uploader("Upload a text file with persona data", type=["txt"])
 if uploaded_file:
     st.session_state.persona = parse_persona_file(uploaded_file)
     st.sidebar.success("Persona data loaded successfully!")
