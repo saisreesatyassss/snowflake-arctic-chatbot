@@ -500,3 +500,4 @@ if st.session_state.messages[-1]["role"] != "assistant":
         # Convert the response to speech and play it
         audio_base64 = text_to_speech(full_response, language_code)
         st_player(f"data:audio/mp3;base64,{audio_base64}", playing=True)
+st.sidebar.info("This application is created by [  SAISRISATYA ](https://www.linkedin.com/in/padala-saisrisatya-subramaneswar-359998247/)")
